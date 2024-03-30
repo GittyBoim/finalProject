@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "943543058060",
+    "project_id": "magicparkfcm-70635",
+    "storage_bucket": "magicparkfcm-70635.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:943543058060:android:cab1ecd0d663f392d205a9",
+        "android_client_info": {
+          "package_name": "com.client"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvutfoJ9iDoaGxIn1Juq2sSjvdIq1W_4s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
