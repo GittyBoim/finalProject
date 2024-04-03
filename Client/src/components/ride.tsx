@@ -28,7 +28,9 @@ export const Ride = ({route, navigation}) => {
     const updateAvailableActTimes = async()=> {
         const res = (await axios.get(`${config.api}/act-time/getByRideId/${ride.id}`)).data;
         setAvailableActTimes(res);
+        setAvailableActTimes(availableActTimes.sort((a, b) => a.timeStart.localeCompare(b.timeStart)));
     }
+
     
   return (
     <View style={styles.container}>
@@ -39,8 +41,7 @@ export const Ride = ({route, navigation}) => {
       <Text style={styles.rideName}>{ride.rideName}</Text>
       <Image source={{uri: `data:image/png;base64,${encode(String.fromCharCode.apply(null, ride.image.data))}`}} style={styles.rideImage} resizeMode='contain'/>
       
-      <Text style={styles.rideDescription} numberOfLines={4} ellipsizeMode='tail'>
-        {'New in park! You can invite queue in  rides in the list ride button nad we  arrang theme in the optimizal option'}</Text>
+      <Text style={styles.rideDescription} numberOfLines={4} ellipsizeMode='tail'>{ride.description}</Text>
       
         <View style={styles.timeContainer}>
 

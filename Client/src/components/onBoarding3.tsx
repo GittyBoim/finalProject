@@ -6,10 +6,10 @@ import { Avatar, Button } from 'react-native-paper';
 export const OnBoarding3 =({navigation}):JSX.Element =>{
     return (
         <View style={styles.container}>
-            <Button style={styles.skipText} onPress={()=> navigation.navigate('Navigation')} textColor='gray'>{'Skip to the app >'}</Button>
+            <Button style={styles.skipText} onPress={()=> navigation.navigate('SignIn')} textColor='gray'>{'Skip to the App >'}</Button>
             <Image source={require('../images/onBoarding3.png')} style={styles.image} resizeMode='contain'/>
             <Text style={styles.title}>{'Get\n Notifications'}</Text>
-            <Text style={styles.text}>{'You can follow the facilities in your personal\n list, get a reminder 15 minutes before the time\n of your equipment. And you are ready to enjoy.'}</Text>
+            <Text style={styles.text}>{'You can follow the rides in your personal\n list, get a reminder 15 minutes before the time\n of your equipment. And you are ready to enjoy.'}</Text>
             
             <View style={styles.buttonsContainer}>
                 <TouchableOpacity onPress={()=> navigation.navigate('OnBoarding1')}>
@@ -25,7 +25,7 @@ export const OnBoarding3 =({navigation}):JSX.Element =>{
                     style={styles.buttonContainer}>
                     <Avatar.Text size={14} label="" style={{flex:1, backgroundColor:'transparent'}}/>
                 </LinearGradient> 
-                <Button style={styles.nextButton} labelStyle={{color:'#7E7E7E'}} onPress={()=> navigation.navigate('Navigation','Rides')}>{'Next>'}</Button>
+                <Button style={styles.nextButton} labelStyle={{color:'#7E7E7E'}} onPress={()=> navigation.navigate('SignIn')}>{'Next>'}</Button>
             </View>
         </View>
     )

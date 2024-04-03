@@ -32,6 +32,9 @@ export class User
     @OneToMany(()=> Token, (token)=> token.user)
     tokens:Token[];
 
+    @Column({nullable:false})
+    numCards:number;
+
     @ManyToMany(()=> ActTime, (ActTime)=> ActTime.users)
     @JoinTable({
         name: 'queues',

@@ -9,6 +9,7 @@ interface Ride {
     id: number,
     rideName: string,
     image?: Buffer,
+    description: string,
     numberSeats: number,
     duringUse: number,
     ageUser: number,

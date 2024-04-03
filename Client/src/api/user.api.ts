@@ -15,17 +15,21 @@ export const getUserAPI = createAsyncThunk("user/getUserAPI", async (userId:numb
 
 export const addUserAPI = createAsyncThunk("user/addUserAPI", async (newUser: User) =>
     {
-        const {actTimes, ...user} =newUser;
-        await axios.post(`${config.api}/user`, user)
+        const paretId = newUser.parent?.id;
+        const {actTimes, parent, ...user} = newUser;
+        await axios.post(`${config.api}/user`, {...user, parent:{id:paretId}});
     }
 )
 
-export const updateUserAPI = createAsyncThunk("user/updateUserAPI", async (obj: { userId: number, newUser: User }) =>
-    await axios.patch(`${config.api}/user/${obj.userId}`, obj.newUser) 
+export const updateUserAPI = createAsyncThunk("user/updateUserAPI", async (obj: { userId: number, newUser: User }) => 
+    {
+        const {actTimes, parent, ...user} =obj.newUser;
+        await axios.patch(`${config.api}/user/${obj.userId}`, user) 
+    }
 )
 
 export const deleteUserAPI = createAsyncThunk("user/deleteUserAPi", async (userId: number) =>
-    await axios.delete(`${config.api}/person/${userId}`)
+    await axios.delete(`${config.api}/user/${userId}`)
 )
 
 export const addActTimeAPI = createAsyncThunk("user/addActTimeAPI", async (obj: { userId: number, registeredUsers: User[], actTime:ActTime}) =>

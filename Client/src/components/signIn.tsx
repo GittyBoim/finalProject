@@ -21,6 +21,8 @@ export const SignIn=({navigation}):JSX.Element=> {
 
     const users:User[] = useSelector( (state:any) => state.userSlice.users);
 
+    const [isExist, setIsExist] = useState(true);
+
     const [formState, setFormState] = useState({
         userName: "",
         idNumber: "",
@@ -65,6 +67,7 @@ export const SignIn=({navigation}):JSX.Element=> {
             .then((res:any)=> {if(res.meta.requestStatus == "fulfilled") getToken(res.payload)});
             navigation.navigate('Navigation','Rides');
         } catch (error) {
+            setIsExist(false);
             console.log(error,"from signin");
         }
         resete();
@@ -96,6 +99,10 @@ export const SignIn=({navigation}):JSX.Element=> {
                 style={styles.textInput}
             />
 
+            {
+                !isExist &&
+                <Text style={{ color: 'red', textAlign: 'center', marginTop: 10 }}>One or more of the details you entered are incorre</Text>
+            }
             <LinearGradient
                 colors={['#FF1546', '#FF7566']}
                 start={{ x: 0, y: 0 }}
@@ -159,7 +166,7 @@ const styles = StyleSheet.create({
     },
     button:{
         flex:1, 
-        backgroundColor:'transparent'
+        backgroundColor:'transparent',
     },  
     texButton:{
         fontFamily:'PloniDBold',

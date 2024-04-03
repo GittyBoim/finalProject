@@ -42,7 +42,7 @@ export const Rides = ({navigation}): JSX.Element => {
 
         <IconButton icon="help" containerColor='white' size={15} style={styles.help} onPress={()=> navigation.navigate('OnBoarding1')}/>
         {
-          users[0]? <Text style={styles.userName} numberOfLines={1} ellipsizeMode="tail">{`Hi ${userName}!`}</Text>:
+          users[0]? <Text style={styles.userName} numberOfLines={1} ellipsizeMode="tail" onPress={()=>navigation.navigate('UpdateUser')}>{`Hi ${users[0].userName}!`}</Text>:
             <Text style={styles.userName} onPress={()=> navigation.navigate('SignIn')}>{'Login >'}</Text>
         }
 

@@ -83,7 +83,7 @@ export const AddChild =({navigation}):JSX.Element=> {
         <View style={styles.container}>
 
             <Image source={require('../images/Frame.png')} style={styles.image}/>
-            <Text style={styles.title}>Add a child</Text>  
+            <Text style={styles.title}>Add a user</Text>  
 
             <TextInput
                 label="Name"

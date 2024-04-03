@@ -19,6 +19,9 @@ export class Ride
 
     @Column({nullable:true, type: 'blob'})
     image:Buffer;
+
+    @Column({nullable:true})
+    description:string;
     
     @Column({nullable:false})
 	numberSeats:number;

@@ -25,10 +25,7 @@ export class NotificationService
       private userService: UserService,
     ){}
     
-    async sendNotification(users:User[], actTime:ActTime, tokens:Token[]): Promise<void>
-    { 
-      console.log("enter to sedn");
-      
+    async sendNotification(users:User[], actTime:ActTime, tokens:Token[]): Promise<void> { 
       const date = new Date();
       const [hours, minutes, seconds] = actTime.timeStart.toString().split(':').map(Number);
       date.setHours(hours);
@@ -42,29 +39,24 @@ export class NotificationService
 
       try{
           const job = schedule.scheduleJob(date , async () => {
-            console.log("in job");
 
             const registerUsers = await Promise.all( users.map(async (u)=> {
               const user = await this.userService.findOne(u.id);
-              console.log(u.userName,user.actTimes.map((at)=> at.id));
               return user.actTimes.some(at=> at.id == actTime.id) ? u : null;
             }));
 
             const filteredUsers = registerUsers.filter((u): u is User  => u !== null);
-
-            console.log("registersssss", filteredUsers);
 
             if(filteredUsers.length > 0)
             {
               const message = {
                 notification:{
                   title: "hey " + users[0].userName,
-                  body: filteredUsers.map((u) => u.userName).join(" ") +"\n have a "+actTime.ride.rideName+" appointment in 10 minutes",
+                  body: filteredUsers.map((u) => u.userName).join(" ") +" have a "+actTime.ride.rideName+" appointment in 10 minutes",
                 },
                 token: tokens[0].token,
               };
               const response =  await admin.messaging().send(message);
-              console.log(response);
             }
 
           });

@@ -58,13 +58,12 @@ export class UserController {
     @Roles(Role.Admin, Role.User)
     @UseGuards(RolesGuard)
     @Delete(':id')
-    async remove(@UserId() id:number):Promise<void>
+    async remove(@Param('id') id:number):Promise<void>
     {
         await this.userService.remove(id);
     }
 
-    //זה בסדר לקבל מערך של משתמשים?
-    //לבדוק שזה עושה את זה בטרנזקציה
+    
     @Roles(Role.Admin, Role.User)
     @UseGuards(RolesGuard)
     @Post('addActTime/:id')

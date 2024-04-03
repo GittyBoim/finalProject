@@ -8,7 +8,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { decodeToken } from '../jwt.utils';
 import LinearGradient from 'react-native-linear-gradient';
 import { ConfirmationRegister } from './confirmationRegister';
-import { act } from 'react-test-renderer';
 
 export const RegisterRide=({visible, setVisible, ride, selectedTime, navigation}):JSX.Element=> {
 
@@ -51,7 +50,7 @@ export const RegisterRide=({visible, setVisible, ride, selectedTime, navigation}
 
     const onCheckUser =(user:User, index:number) => {
         if(!checked[index] && ifConflict(user)){
-            Alert.alert(`${user.userName} have a conflict`);
+            Alert.alert(user.userName + " have other ride on this time");
         }
         else{
             checked[index] =!checked[index];
@@ -63,7 +62,6 @@ export const RegisterRide=({visible, setVisible, ride, selectedTime, navigation}
         const registeredUsers = users.filter((user)=> user.age >= ride.ageUser).filter((user, index)=> checked[index]);
         const userId = decodeToken(await AsyncStorage.getItem('token'));
         Dispatch(addActTimeAPI({userId, registeredUsers, actTime}) as unknown as AnyAction);
-        //.err א להציג את המודול
         setVisibleConfirmation(true)
         setVisible(false);
     }

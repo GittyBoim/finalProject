@@ -15,35 +15,9 @@ import { AddChild } from './addChild';
 import { OnBoarding1 } from './onBoarding1';
 import { OnBoarding2 } from './onBoarding2';
 import { OnBoarding3 } from './onBoarding3';
+import { UpdateUser } from './updateUser';
+import { Payment } from './payment';
 
-// const Drawer=():JSX.Element =>{
-
-//     const [visibleSignIn, setVisibleSinIn] = useState<Boolean>(false);
-
-//     const Drawer = createDrawerNavigator();
-
-//     return(
-//         <>
-//         <Drawer.Navigator 
-//             backBehavior="history" 
-//             drawerContent={ props => {
-//                 return (
-//                 <DrawerContentScrollView {...props}>
-//                     <DrawerItemList {...props} />
-//                     <DrawerItem label="Login" onPress={() => setVisibleSinIn(true)}/>
-//                 </DrawerContentScrollView>
-//                 )
-//             }}
-//         >
-//             <Drawer.Screen name="Home" component={Home}></Drawer.Screen>
-//             <Drawer.Screen name="Rides" component={Rides}></Drawer.Screen>
-//             <Drawer.Screen name="SignUp" component={SignUp}></Drawer.Screen>
-//             <Drawer.Screen name="MyRides" component={MyRides}></Drawer.Screen>
-//             <Drawer.Screen name="Feedback" component={Feedback}></Drawer.Screen>
-//         </Drawer.Navigator>
-//         </>
-//     )
-// }
 
 const BottomNavigation =({route}) => {
     
@@ -70,11 +44,13 @@ export const Navigation =()=>{
                 <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
                 <Stack.Screen name="SignIn" component={SignIn} options={{ headerShown: false }} />
                 <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown: false }} />
+                <Stack.Screen name="UpdateUser" component={UpdateUser} options={{ headerShown: false }}/>
                 <Stack.Screen name="OnBoarding1" component={OnBoarding1} options={{ headerShown: false }} />
                 <Stack.Screen name="OnBoarding2" component={OnBoarding2} options={{ headerShown: false }} />
                 <Stack.Screen name="OnBoarding3" component={OnBoarding3} options={{ headerShown: false }} />
                 <Stack.Screen name="Navigation" component={BottomNavigation} options={{ headerShown: false }}/>
                 <Stack.Screen name="Ride" component={Ride} options={{ headerShown: false }} />
+                <Stack.Screen name="Payment" component={Payment} options={{ headerShown: false }} />
             </Stack.Navigator>
        </NavigationContainer>
     )

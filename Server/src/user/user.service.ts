@@ -2,7 +2,6 @@ import { HttpException, Inject, Injectable, forwardRef } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from 'src/user/entity/User.entity';
-// import * as bcrypt from 'bcrypt';//הצפנה
 import { ActTime } from 'src/act-time/entity/ActTime.entity';
 import { NotificationService } from 'src/notification/notification.service';
 
@@ -63,8 +62,19 @@ export class UserService
             
             if(!newUser.age || !ageRegex.test(newUser.age.toString()))
                 throw new HttpException("Invalid age", 409)
-            // newUser.idNumber=await bcrypt.hash(newUser.idNumber, 10); הצפנה
-            await this.userRepository.insert(newUser);
+
+                console.log(newUser);
+            //newUser.idNumber=await bcrypt.hash(newUser.idNumber, 10); הצפנה
+
+            if(newUser.parent){
+                const parent = await this.userRepository.findOneByOrFail({id:newUser.parent.id});
+                parent.numCards = parent.numCards -1;
+                newUser.numCards = 0;
+                await this.userRepository.save(parent);
+            }
+
+            await this.userRepository.insert(newUser)
+
         }catch(err){
             throw new HttpException(err.message, err.status);
         }
@@ -90,14 +100,6 @@ export class UserService
         }
     }
 
-    // async findOneByUserName(userName: string):Promise<User | null>
-    // {
-    //     try{
-    //         return await this.userRepository.findOneBy({userName:userName});
-    //     }catch(err){
-    //         throw new HttpException(err.message, err.status);
-    //     }
-    // }   של ההצפנה
 
     async findOneByIdNumber(idNumber: string):Promise<User | null>
     {
@@ -108,40 +110,20 @@ export class UserService
         }
     } 
 
-    // checkTimeOverlap = (activity1: any, activity2: any): Boolean => {
-    //     const start_time1 = new Date(`2000/01/01 ${activity1.timeStart}`);
-    //     const end_time1 = new Date(start_time1.getTime() + activity1.ride.duringUse * 60000);
-        
-    //     const start_time2 = new Date(`2000/01/01 ${activity2.timeStart}`);
-    //     const end_time2 = new Date(start_time2.getTime() + activity2.ride.duringUse * 60000);
-    //     return ((start_time1 <= start_time2 && start_time2 <= end_time1) 
-    //     || (start_time2 <= start_time1 && start_time1 <= end_time2));
-    // }
-
-    //לבדוק שהשעה של התור לא תפוסה למשתמש 
-    //מוסיף את כל הנרשמים בטרנזקציה במקרה שאחד נופל ההרשמה נופלת לכולם
+   
     async addActTime(actTime:ActTime, users:User[], parentId:number): Promise<void> {
-        console.log("enter");
-        console.log(users);
         try{
             users =  await Promise.all(users.map( async (user:User) => {
                 user = await this.userRepository.findOneOrFail({where:{id:user.id}, relations:['actTimes', 'actTimes.ride']});
-                //if(user.id == parentId || user.parentId == parentId)
-                // user.actTimes.forEach((at)=>{
-                // check conflicts
-                // this.checkTimeOverlap(at, actTime);
-                // })
                 user.actTimes.push(actTime);
                 return user;
             }));
             await this.userRepository.save(users);
-            console.log("after save actTime");
             const tokens = (await this.userRepository.findOneOrFail({where:{id:parentId}, relations:['tokens']})).tokens;
-            console.log("after token");
             await this.notificationService.sendNotification(users, actTime, tokens);
         } catch (err) {
             console.log(err);
-          throw new HttpException(err.message, err.status);
+            throw new HttpException(err.message, err.status);
         }
       }
 
@@ -153,7 +135,7 @@ export class UserService
             user.actTimes.splice(index, 1);
             await this.userRepository.save(user);
         }catch(err){
-            throw new HttpException(err.message, 400);
+            throw new HttpException(err.message, err.status);
         }
     }
 }

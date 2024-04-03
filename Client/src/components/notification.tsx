@@ -4,14 +4,14 @@ import LinearGradient from "react-native-linear-gradient";
 import { Button, Dialog, Portal } from "react-native-paper";
 
 export const Notification =({visible, setVisible, body}):JSX.Element => {
+
     return(
         <Portal>
           <Dialog visible={visible}  onDismiss={()=> setVisible(false)}style={styles.container}>
                 <Dialog.Content>
                     <Image source={require(`../images/rides/RollerCoaster.png`)} style={styles.image} resizeMode='contain'/>
                     <Text style={styles.title}>Hey!</Text>
-                    <Text style={styles.text}>{body} </Text>
-                    <Text style={styles.text}>{body.split("\n")[0]} </Text>
+                    <Text style={styles.text}>{body.substring(1, body.length - 1)}</Text>
 
                     <LinearGradient
                         colors={['#FF1546', '#FF7566']}
@@ -19,7 +19,7 @@ export const Notification =({visible, setVisible, body}):JSX.Element => {
                         end={{ x: 1, y: 1 }}
                         style={styles.buttonContainer}>
                         <Button mode='contained' style={styles.button} labelStyle={styles.texButton} onPress={() => setVisible(false)}>Got it</Button>
-                    </LinearGradient>  
+                    </LinearGradient> 
 
                 </Dialog.Content>
           </Dialog>

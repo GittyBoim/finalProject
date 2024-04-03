@@ -2,7 +2,7 @@ const env = 'development';
 
 const config = {
     development:{
-        api:'http://10.0.0.3:3000'
+        api:'http://192.168.33.13:3000'
     },
     staging:{
         api:'http://stating'

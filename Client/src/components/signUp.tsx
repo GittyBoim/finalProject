@@ -22,7 +22,11 @@ export const SignUp = ({navigation}): JSX.Element => {
         actTimes: [],
     });
 
+    const [numCards, setNumCards] = useState("0");
+
     const [isPasswordVisible, setIsPasswordVisible] = useState(true);
+
+    const [isExist, setIsExist] = useState(true);
 
     const Dispatch = useDispatch();
 
@@ -49,7 +53,7 @@ export const SignUp = ({navigation}): JSX.Element => {
     const isDisabledButton =() => {
         return !validateIDNumber(user.idNumber) || !validateName(user.userName) 
         || !validatePhone(user.phone) || !validateAge(user.age.toString())
-        || user.idNumber == "" || user.userName == "" ||user.phone == "" || user.age.toString() == "";
+        || user.idNumber == "" || user.userName == "" || user.phone == "" || user.age.toString() == "";
     }
 
     const onChange = (fieldName: string, value: string) => {
@@ -72,19 +76,20 @@ export const SignUp = ({navigation}): JSX.Element => {
 
     async function handleFormSubmit():Promise<void> {
         try{
-            const token= (await axios.post(`${config.api}/auth/signup`,user)).data.access_token
+            const token= (await axios.post(`${config.api}/auth/signup`, {...user, numCards: parseInt(numCards, 10)})).data.access_token
             const userId = decodeToken(token);
             
             resete();
 
-            await AsyncStorage.setItem('token',token);
+            await AsyncStorage.setItem('token', token);
 
             Dispatch(getUserAPI(userId) as unknown as AnyAction);
 
-            navigation.navigate('Navigation','AddChild');
+            navigation.navigate('Payment');
             
         }catch(err){
             console.log(err);
+            setIsExist(false);
         }
     }
 
@@ -92,7 +97,7 @@ export const SignUp = ({navigation}): JSX.Element => {
     
     return (
         <ScrollView automaticallyAdjustKeyboardInsets={true}>
-        <View>
+        <View style={styles.container}>
             <Image source={require('../images/Frame.png')} style={styles.image}/>
             <Text style={styles.title}>Sign up</Text> 
             
@@ -153,8 +158,19 @@ export const SignUp = ({navigation}): JSX.Element => {
                 !validateAge(user.age.toString()) &&
                 <Text style={{color:'red'}}>Invalid age</Text>
             }
-            
-
+           <TextInput
+                label="How many frinds came with you?"
+                underlineColor='transparent'
+                underlineStyle={{  display:'none' }}
+                keyboardType = 'numeric'
+                value={numCards}
+                style={styles.textInput}
+                onChangeText={(value) => {setNumCards(value)}}
+            /> 
+            {
+                !isExist &&
+                <Text style={{ color: 'red', textAlign: 'center', marginTop: 10 }}>This user exists in the system</Text>
+            }
             <LinearGradient
                     colors={['#FF1546', '#FF7566']}
                     start={{ x: 0, y: 0 }}
@@ -180,21 +196,21 @@ const styles = StyleSheet.create({
         backgroundColor:'rgba(245, 246, 250, 1)',
     },
     image:{
-        marginTop: 62,
-        alignSelf:'center'
+        marginTop: 40,
+        alignSelf:'center',
     },
     title:{
         fontSize: 36,
         fontFamily:'PloniDBold',
         fontWeight:'600',
         lineHeight: 40,
-        padding: 28,
+        padding: 16,
         paddingBottom: 15,
         color:'black',
         alignSelf:'center',
     },
     textInput: {
-        marginTop: 12,
+        marginTop: 8,
         margin: 5,
         width:'80%',
         alignSelf:"center",
@@ -206,7 +222,7 @@ const styles = StyleSheet.create({
     buttonContainer:{
         width:'80%',
         height: 58,
-        marginTop: 20,
+        marginTop: 15,
         alignSelf:'center',
         borderRadius: 24,
         elevation: 4, 
@@ -228,7 +244,7 @@ const styles = StyleSheet.create({
     },
     textContainer: {
         flexDirection:'row',
-        marginTop: 40,
+        marginTop: 20,
         alignSelf:'center',
     },
     text:{

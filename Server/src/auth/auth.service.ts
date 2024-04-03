@@ -38,7 +38,7 @@ export class AuthService
     async signUp(newUser:User)
     {
         try{
-            const idNumber =newUser.idNumber;
+            const idNumber = newUser.idNumber;
             await this.userService.create(newUser);
             return await this.signIn(newUser.userName, idNumber);
         }catch(err){

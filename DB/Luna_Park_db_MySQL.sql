@@ -19,6 +19,7 @@ create table Rides(
     rideName varchar(25) not null,
     duringUse int not null,
     image BLOB,
+    description varchar(5000) null,
     numberSeats int not null,
     ageUser int not null,
     targetAge enum('baby', 'child', 'teenager', 'adult') not null
@@ -94,4 +95,14 @@ BEGIN
 END //
 
 DELIMITER ;
+
+
+CREATE EVENT delete_all_queues_record
+ON SCHEDULE
+    EVERY 1 DAY
+    STARTS CURRENT_DATE + INTERVAL 1 DAY
+    ON COMPLETION PRESERVE
+DO
+	TRUNCATE TABLE queues;
+
 

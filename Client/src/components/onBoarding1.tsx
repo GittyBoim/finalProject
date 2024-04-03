@@ -6,7 +6,7 @@ import { Avatar, Button } from 'react-native-paper';
 export const OnBoarding1 =({navigation}):JSX.Element =>{
     return (
         <View style={styles.container}>
-            <Button style={styles.skipText} onPress={()=> navigation.navigate('Navigation')} textColor='gray'>{'Skip to the app >'}</Button>
+            <Button style={styles.skipText} onPress={()=> navigation.navigate('SignIn')} textColor='gray'>{'Skip to the App >'}</Button>
              <Image source={require('../images/onBoarding1.png')} style={styles.image} resizeMode='contain'/>
              <Text style={styles.title}>{'Who likes to\n stand in lines?'}</Text>
              <Text style={styles.text}>{'In our friendly app you can make\n appointments for your favorite ride,\n skip the lines and dive right into the fun!'}</Text>
