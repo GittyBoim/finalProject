@@ -159,7 +159,7 @@ export const SignUp = ({navigation}): JSX.Element => {
                 <Text style={{color:'red'}}>Invalid age</Text>
             }
            <TextInput
-                label="How many frinds came with you?"
+                label="Number cards"
                 underlineColor='transparent'
                 underlineStyle={{  display:'none' }}
                 keyboardType = 'numeric'
