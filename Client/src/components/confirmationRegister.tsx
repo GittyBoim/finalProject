@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
         fontFamily:'PloniDBold',
         fontWeight:'600',
         lineHeight: 40,
-        fontSize:24,
+        fontSize: 24,
         color:'black',  
         marginTop: -18,
     },
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
         fontFamily:'PloniDBold',
         fontWeight:'600',
         lineHeight: 40,
-        fontSize:22,
+        fontSize: 22,
         color:'white',
     }
 })

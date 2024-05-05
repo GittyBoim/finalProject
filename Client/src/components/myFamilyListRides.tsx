@@ -83,12 +83,12 @@ const styles = StyleSheet.create({
         backgroundColor:'rgba(245, 246, 250, 1)',
     },
     item:{
-        borderRadius:20, 
+        borderRadius: 20, 
         backgroundColor:'white', 
-        marginTop:15
+        marginTop: 15
     },
     title: {
-        marginBottom:50,
+        marginBottom: 50,
     },
     description:{
         flexDirection: 'row', 

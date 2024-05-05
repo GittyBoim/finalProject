@@ -59,20 +59,20 @@ export const MyListRides = ({route}): JSX.Element => {
 }
 const styles = StyleSheet.create({
     container: {
-        flex:1,
+        flex: 1,
         backgroundColor:'rgba(245, 246, 250, 1)',
     },
     item:{
-        borderRadius:20, 
+        borderRadius: 20, 
         backgroundColor:'white', 
-        marginTop:15
+        marginTop: 15
     },
     description:{
         flexDirection: 'row', 
         alignItems: 'center',
     },
     title: {
-        marginBottom:50,
+        marginBottom: 50,
     },
     text: {
         fontSize: 15,

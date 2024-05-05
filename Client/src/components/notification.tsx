@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
         fontFamily:'PloniDBold',
         fontWeight:'600',
         lineHeight: 40,
-        fontSize:22,
+        fontSize: 22,
         color:'white',
     }
 })

@@ -11,7 +11,7 @@ import { ConfirmationAddChild } from './confirmationAddChild';
 export const AddChild =({navigation}):JSX.Element=> {
 
     const [isPasswordVisible, setIsPasswordVisible] = useState(true);
-    const [visibleConfirmation, setVisibleConfirmation] =useState(false);
+    const [visibleConfirmation, setVisibleConfirmation] = useState(false);
 
     const users:User[] = useSelector( (state:any) => state.userSlice.users);
 
@@ -61,7 +61,7 @@ export const AddChild =({navigation}):JSX.Element=> {
         
     };
 
-    const resete=()=> setChild({
+    const resete=() => setChild({
         id: 0,
         userName: '',
         idNumber: '',
