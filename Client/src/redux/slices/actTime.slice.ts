@@ -23,21 +23,21 @@ const actTimeSlice = createSlice({
             const actTime: ActTime = (action.meta.arg) as ActTime;
             state.actTimes.push(actTime);
         })
-        .addCase(addActTimeAPI.rejected, (state, action) =>{
+        .addCase(addActTimeAPI.rejected, (state, action) => {
             Alert.alert("actTime/addActTimeAPI", action.error.message || "");
         })
-        .addCase(updateActTimeAPI.fulfilled, (state, action) =>{
+        .addCase(updateActTimeAPI.fulfilled, (state, action) => {
             const index = state.actTimes.findIndex((ActTime: ActTime) => ActTime.id === action.meta.arg.actTimeId);
             state.actTimes[index] = action.meta.arg.newActTime
         })
-        .addCase(updateActTimeAPI.rejected, (state, action) =>{
+        .addCase(updateActTimeAPI.rejected, (state, action) => {
             Alert.alert("actTime/updateActTimeAPI", action.error.message || "");    
         })
-        .addCase(deleteActTimeAPI.fulfilled, (state, action) =>{
+        .addCase(deleteActTimeAPI.fulfilled, (state, action) => {
             const index = state.actTimes.findIndex((actTime: ActTime) => actTime.id === (action.meta.arg));
             state.actTimes.splice(index, 1);
         })
-        .addCase(deleteActTimeAPI.rejected, (state, action) =>{
+        .addCase(deleteActTimeAPI.rejected, (state, action) => {
             Alert.alert("actTime/deleteActTimeAPI", action.error.message || ""); 
         })
         

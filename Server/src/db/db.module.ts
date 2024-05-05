@@ -16,7 +16,7 @@ import { User } from 'src/user/entity/User.entity';
           password: '0556705220',
           database: 'luna_park_db',
           entities: [User, Ride, ActTime, Token, Feedback],
-          synchronize: true,
+          synchronize: false,
         }),
         TypeOrmModule.forFeature([User, Ride, ActTime, Token, Feedback])
       ],
