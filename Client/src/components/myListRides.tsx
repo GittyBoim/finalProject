@@ -16,7 +16,7 @@ export const MyListRides = ({route}): JSX.Element => {
 
     const Dispatch = useDispatch();
 
-    const deleteActTime = async(item:ActTime) =>{
+    const deleteActTime = async(item:ActTime) => {
         Dispatch(deleteActTimeAPI({userId:users[route.params.index].id, actTime:item}) as unknown as AnyAction);
     }
 
